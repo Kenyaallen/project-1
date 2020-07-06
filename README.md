@@ -7,5 +7,5 @@ In Project 1 a group of students (Mandy Lloyd, Sarah Kerr, and Kenya Allen) are 
 =======
 In this application users will locate a restaurant based on their food preferences for the evening and then search that restaurants restroom ratings.  
 
-By using this application, you are one quick search away from finding knowing if the restaurant that you will be socializing in meets all of your YiPEE needs.
+By using this application, you are one quick search away from finding knowing if the restaurant that you will be socializing in meets all of your YiPEE needs..
 >>>>>>> 66fd2069adab2f25589aba7ce2c483c1dc999375
