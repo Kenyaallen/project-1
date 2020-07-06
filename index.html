@@ -34,6 +34,19 @@
             }).then(response => {
                 console.log(response);
             })
+
+            var queryURL = "https://www.refugerestrooms.org/api/swagger_doc.json";
+
+            $.ajax({
+            method: "GET",
+            url: queryURL,
+            headers: {
+                "content-type": "application/json"
+            }
+            }).then(response => {
+                console.log(response);
+            })
+
         </script>
 
 
