@@ -1,0 +1,12 @@
+body {
+    background-color: whitesmoke;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+   }
+
+   .container {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+}
