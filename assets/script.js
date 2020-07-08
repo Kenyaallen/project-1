@@ -1,20 +1,40 @@
 $(document).ready(function(){
 
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?lat=" + lat + "&lon=" + long; 
-    var apiKey = "b2f666e78eb609db1442ad0b8d5780e8";
-    var lat; 
-    var long;
+    var ZomatoQueryURL = "https://developers.zomato.com/api/v2.1/search?lat=" + latitude + "&lon=" + longitude; 
+    var ZomatoAPIKey = "b2f666e78eb609db1442ad0b8d5780e8";
+    var zipCodeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=23222&key=AIzaSyCHUllvvIE1AweiwvXJOCvxq5DmtUhv1Cw"; 
+    var latitude; 
+    var longitude;
+    var zipCode = 23222; 
 
-$.ajax({
+getLatLngByZipcode(); 
+// console.log(latitude, longitude);
+getRestaurants(); 
+
+function getLatLngByZipcode() {
+  $.ajax({
+    method: "GET", 
+    url: zipCodeQueryURL,
+   
+  }).then(response =>{
+    console.log(response); 
+  })
+  
+}
+
+function getRestaurants (){
+
+  $.ajax({
     method: "GET",
-    url: queryURL,
+    url: ZomatoQueryURL,
     headers: {
-        "user-key": apiKey,
+        "user-key": ZomatoAPIKey,
         "content-type": "application/json"
     }
     }).then(response => {
         console.log(response);
     })
+}    
 
 
 //refugee api call 
