@@ -38,24 +38,24 @@
     
     </div>
 
-<div class="container">
     <!--Search Input-->
+    <div class="container">
     <div class = searchArea>
         <div class="row">
-        <form class="col s12">
-              <div class="row">
-                    <div class="input-field col s4">
-                  <input placeholder="23221" id="zipCode" type="text" class="validate">
-                  <label for="zipCode">Where would you like to search?</label>
+        <form class="col s8 push-s2">
+                <label for="zipCode">Where would you like to search?</label>
+                <input placeholder="23221" id="zipCode" type="text" class="validate col s8 push-s2">
                     </div>
                 </div>
         </form>
         </div>
         <!--Checkboxes-->
-        <p>
+        <div class="row">
+            <label for="checkboxes">What are you looking for?</label>
+            <div class="row">
             <label>
-              <input type="checkbox" checked="checked" />
-              <span>Bar</span>
+                <input type="checkbox" checked="checked" />
+                <span>Bar</span>
             </label>
             <label>
                 <input type="checkbox" checked="checked" />
@@ -65,7 +65,10 @@
                 <input type="checkbox" checked="checked" />
                 <span>Late Night</span>
               </label>
-          </p>
+            </div>
+        </div>
+          
+</div>
 </div>
 
 
