@@ -26,46 +26,57 @@
     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
     </script>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
 <body>
 
     <div class = "titleArea"> 
         <!--adding linear-gradient function-->
-       <h1 class="rainbow-text">YipPEE</h1>
+       <h1 class="rainbow-effect">YipPEE</h1>
 
        <!--adding image-->
        <img src="" alt= "toilet">
     
     </div>
 
-<div class="container">
     <!--Search Input-->
+    <div class="container">
     <div class = searchArea>
         <div class="row">
-        <form class="col s12">
-              <div class="row">
-                    <div class="input-field col s4">
-                  <input placeholder="23221" id="zipCode" type="text" class="validate">
-                  <label for="zipCode">Where would you like to search?</label>
+        <form class="col s8 push-s2">
+                <label for="zipCode" class="changeFont">Where would you like to search?</label>
+                <input placeholder="23221" id="zipCode" type="text" class="validate col s8 push-s2">
                     </div>
                 </div>
         </form>
         </div>
         <!--Checkboxes-->
-        <p>
+    <div class="row">
+            <label for="checkboxes" class="changeFont">What are you looking for?</label>
+        <div class="row">
             <label>
-              <input type="checkbox" checked="checked" />
-              <span>Bar</span>
+                <input type="checkbox"  />
+                <span>Bar</span>
             </label>
             <label>
-                <input type="checkbox" checked="checked" />
+                <input type="checkbox"  />
                 <span>Food</span>
               </label>
               <label>
-                <input type="checkbox" checked="checked" />
+                <input type="checkbox" />
                 <span>Late Night</span>
               </label>
-          </p>
+        </div>
+        <div class="row">    
+            <button class="btn waves-effect rainbow-effect" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+          
+</div>
 </div>
 
 

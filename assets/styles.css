@@ -5,14 +5,19 @@ body {
         text-align: center;
    }
 
-   .container {
+.container {
     position: relative;
     justify-content: center;
     text-align: center;
 }
 
+.changeFont {
+    color: #ffad33;
+    font-size: x-large;
+}
+
 /*for linear gradient */
-.rainbow-text {
+.rainbow-effect {
     background-image: linear-gradient(to left, crimson, yellow, darkMagenta, green);
     -webkit-background-clip: text;
     color: transparent;
