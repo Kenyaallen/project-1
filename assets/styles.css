@@ -10,3 +10,10 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+/*for linear gradient */
+.rainbow-text {
+    background-image: linear-gradient(to left, crimson, yellow, darkMagenta, green);
+    -webkit-background-clip: text;
+    color: transparent;
+}
