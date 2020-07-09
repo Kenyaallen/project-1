@@ -16,6 +16,13 @@ body {
     font-size: x-large;
 }
 
+.waves-effect {
+    /* The alpha value would allow the text and background color
+    of the button to still show through. */
+     background-color: #ffad33;
+   }
+
+
 /*for linear gradient */
 .rainbow-effect {
     background-image: linear-gradient(to left, crimson, yellow, darkMagenta, green);
