@@ -1,15 +1,21 @@
 $(document).ready(function(){
 
-    var ZomatoQueryURL = "https://developers.zomato.com/api/v2.1/search?lat=" + latitude + "&lon=" + longitude; 
     var ZomatoAPIKey = "b2f666e78eb609db1442ad0b8d5780e8";
     var zipCodeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=23222&key=AIzaSyCHUllvvIE1AweiwvXJOCvxq5DmtUhv1Cw"; 
     var latitude; 
     var longitude;
-    var zipCode = 23222; 
+    var zipCode; 
 
 getLatLngByZipcode(); 
 // console.log(latitude, longitude);
 getRestaurants(); 
+
+function getZipCode(){ 
+  zipCode = $(".validate").val()
+  console.log("Function getZipCode returns: " + zipCode); 
+  getLatLngByZipcode(); 
+
+}
 
 function getLatLngByZipcode() {
   $.ajax({
@@ -18,7 +24,13 @@ function getLatLngByZipcode() {
    
   }).then(response =>{
     console.log(response); 
+    latitude = response.results[0].geometry.location.lat; 
+    longitude = response.results[0].geometry.location.lng; 
+    console.log(latitude, longitude); 
   })
+
+  getRestaurants(); 
+  pullRefugeeInfo(); 
   
 }
 
@@ -26,7 +38,7 @@ function getRestaurants (){
 
   $.ajax({
     method: "GET",
-    url: ZomatoQueryURL,
+    url: "https://developers.zomato.com/api/v2.1/search?lat=" + latitude + "&lon=" + longitude, 
     headers: {
         "user-key": ZomatoAPIKey,
         "content-type": "application/json"
@@ -38,62 +50,65 @@ function getRestaurants (){
 
 
 //refugee api call 
-var queryURL = "https://www.refugerestrooms.org/api/swagger_doc.json";
+function pullRefugeeInfo(){
+    var queryURL = "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=10&offset=0&lat=" + latitude + "&lng=" + longitude;
 
-$.ajax({
-method: "GET",
-url: queryURL,
-headers: {
-    "content-type": "application/json"
+    $.ajax({
+    method: "GET",
+    url: queryURL,
+    headers: {
+        "content-type": "application/json"
+    }
+    }).then(response => {
+        console.log(response);
+    })
+
 }
-}).then(response => {
-    console.log(response);
-})
 
 
-//map search api 
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 6
-        });
-        infoWindow = new google.maps.InfoWindow;
+// //map search api 
+//       // Note: This example requires that you consent to location sharing when
+//       // prompted by your browser. If you see the error "The Geolocation service
+//       // failed.", it means you probably did not give permission for the browser to
+//       // locate you.
+//       var map, infoWindow;
+//       function initMap() {
+//         map = new google.maps.Map(document.getElementById('map'), {
+//           center: {lat: -34.397, lng: 150.644},
+//           zoom: 6
+//         });
+//         infoWindow = new google.maps.InfoWindow;
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+//         // Try HTML5 geolocation.
+//         if (navigator.geolocation) {
+//           navigator.geolocation.getCurrentPosition(function(position) {
+//             var pos = {
+//               lat: position.coords.latitude,
+//               lng: position.coords.longitude
+//             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
+//             infoWindow.setPosition(pos);
+//             infoWindow.setContent('Location found.');
+//             infoWindow.open(map);
+//             map.setCenter(pos);
+//           }, function() {
+//             handleLocationError(true, infoWindow, map.getCenter());
+//           });
+//         } else {
+//           // Browser doesn't support Geolocation
+//           handleLocationError(false, infoWindow, map.getCenter());
+//         }
+//       }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
+//       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//         infoWindow.setPosition(pos);
+//         infoWindow.setContent(browserHasGeolocation ?
+//                               'Error: The Geolocation service failed.' :
+//                               'Error: Your browser doesn\'t support geolocation.');
+//         infoWindow.open(map);
+//       }
 
 
-
+$("#searchBtn").on("click", getZipCode)
 
 }); 
