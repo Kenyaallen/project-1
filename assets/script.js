@@ -1,16 +1,12 @@
 $(document).ready(function(){
 
     var ZomatoAPIKey = "b2f666e78eb609db1442ad0b8d5780e8";
-    var zipCodeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=23222&key=AIzaSyCHUllvvIE1AweiwvXJOCvxq5DmtUhv1Cw"; 
-    var latitude; 
-    var longitude;
+    // var zipCodeQueryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipCode + "&key=AIzaSyCHUllvvIE1AweiwvXJOCvxq5DmtUhv1Cw"; 
+    // var latitude; 
+    // var longitude;
     var zipCode; 
     var restaurantLat; 
     var restaurantLong; 
-
-getLatLngByZipcode(); 
-// console.log(latitude, longitude);
-getRestaurants(); 
 
 function getZipCode(){ 
   zipCode = $(".validate").val()
@@ -22,22 +18,21 @@ function getZipCode(){
 function getLatLngByZipcode() {
   $.ajax({
     method: "GET", 
-    url: zipCodeQueryURL,
+    url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipCode + "&key=AIzaSyCHUllvvIE1AweiwvXJOCvxq5DmtUhv1Cw",
    
   }).then(response =>{
     console.log(response); 
     latitude = response.results[0].geometry.location.lat; 
     longitude = response.results[0].geometry.location.lng; 
     console.log(latitude, longitude); 
+    getRestaurants(latitude, longitude); 
   })
 
-  getRestaurants(); 
-  pullRefugeeInfo(); 
+  // pullRefugeeInfo(); 
   
 }
 
-function getRestaurants (){
-
+function getRestaurants (latitude, longitude){
   $.ajax({
     method: "GET",
     url: "https://developers.zomato.com/api/v2.1/search?lat=" + latitude + "&lon=" + longitude, 
@@ -46,15 +41,33 @@ function getRestaurants (){
         "content-type": "application/json"
     }
     }).then(response => {
-        console.log(response);
+        // console.log(response);
+        console.log(response); 
+        displayRestaurants(response); 
     })
 }    
 
+function displayRestaurants (response){ 
+  for (i=0; i<10; i++){
+    var restaurant = $("<div>");
+    // var restaurantBtn = $("<button>") 
+    // restaurantBtn.attr("class", "btn-floating btn-small waves-effect waves-light"); 
+    // restaurantBtn.attr("lat", response.restaurants[i].restaurant.location.latitude); 
+    // restaurantBtn.attr("long", response.restaurants[i].restaurant.location.longitude); 
+    restaurant.attr("lat", response.restaurants[i].restaurant.location.latitude); 
+    restaurant.attr("long", response.restaurants[i].restaurant.location.longitude); 
+    restaurant.html(response.restaurants[i].restaurant.name);  
+    var restaurantLat = response.restaurants[i].restaurant.location.latitude; 
+    var restaurantLong = response.restaurants[i].restaurant.location.longitude; 
+    $(".searchResultsArea").append(restaurant);
+    // restaurant.append(restaurantBtn); 
+    pullRefugeeInfo(restaurantLat, restaurantLong); 
+    
+  }
+}
 
 //refugee api call 
-function pullRefugeeInfo(){
-    //need to set the restaurantLat variable 
-    //need to set the restaurantLong variable
+function pullRefugeeInfo(restaurantLat, restaurantLong){
     var queryURL = "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=10&offset=0&lat=" + restaurantLat + "&lng=" + restaurantLong;
 
     $.ajax({
@@ -64,17 +77,11 @@ function pullRefugeeInfo(){
         "content-type": "application/json"
     }
     }).then(response => {
-        displayRefugeeInfo(reponse); 
+        console.log(response)
+
+
     })
-
 }
-
-function displayRefugeeInfo (response){ 
-  console.log(response)
-  //add code here to display the specific Refugee items we want to display for the restaurnat
-
-}
-
 
 
 $("#searchBtn").on("click", getZipCode)
