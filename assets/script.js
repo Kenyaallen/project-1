@@ -5,6 +5,8 @@ $(document).ready(function(){
     var latitude; 
     var longitude;
     var zipCode; 
+    var restaurantLat; 
+    var restaurantLong; 
 
 getLatLngByZipcode(); 
 // console.log(latitude, longitude);
@@ -51,7 +53,9 @@ function getRestaurants (){
 
 //refugee api call 
 function pullRefugeeInfo(){
-    var queryURL = "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=10&offset=0&lat=" + latitude + "&lng=" + longitude;
+    //need to set the restaurantLat variable 
+    //need to set the restaurantLong variable
+    var queryURL = "https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=10&offset=0&lat=" + restaurantLat + "&lng=" + restaurantLong;
 
     $.ajax({
     method: "GET",
@@ -60,10 +64,28 @@ function pullRefugeeInfo(){
         "content-type": "application/json"
     }
     }).then(response => {
-        console.log(response);
+        displayRefugeeInfo(reponse); 
     })
 
 }
+
+function displayRefugeeInfo (response){ 
+  console.log(response)
+  //add code here to display the specific Refugee items we want to display for the restaurnat
+
+}
+
+
+
+$("#searchBtn").on("click", getZipCode)
+
+//not yet functional - need class or ID of each individual restaurant search result button 
+//$("add class or ID here").on("click", pullRefugeeInfo)
+
+}); 
+
+
+
 
 
 // //map search api 
@@ -107,8 +129,3 @@ function pullRefugeeInfo(){
 //                               'Error: Your browser doesn\'t support geolocation.');
 //         infoWindow.open(map);
 //       }
-
-
-$("#searchBtn").on("click", getZipCode)
-
-}); 
