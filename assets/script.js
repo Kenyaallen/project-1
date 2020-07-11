@@ -12,13 +12,16 @@ $(document).ready(function(){
     var restaurantResponse;  
     var intersection; 
 
+//gets the zipcode provided by the user 
 function getZipCode(){ 
+  $(".searchResultsArea").empty(); 
   zipCode = $(".validate").val()
   console.log("Function getZipCode returns: " + zipCode); 
   getLatLngByZipcode(); 
 
 }
 
+//gets the latitude and longitude using Google geolocation API and the zipcode provided by the user 
 function getLatLngByZipcode() {
   $.ajax({
     method: "GET", 
@@ -34,6 +37,7 @@ function getLatLngByZipcode() {
   
 }
 
+//Zomato API call 
 function getRestaurants (latitude, longitude){
   $.ajax({
     method: "GET",
@@ -53,26 +57,6 @@ function getRestaurants (latitude, longitude){
 
     })
 }    
-
-function displayRestaurants (response){ 
-  for (i=0; i<20; i++){
-    // var restaurant = $("<div>");
-
-    // var restaurantBtn = $("<button>") 
-    // restaurantBtn.attr("class", "btn-floating btn-small waves-effect waves-light"); 
-    // restaurantBtn.attr("lat", response.restaurants[i].restaurant.location.latitude); 
-    // restaurantBtn.attr("long", response.restaurants[i].restaurant.location.longitude); 
-    // restaurant.attr("lat", response.restaurants[i].restaurant.location.latitude); 
-    // restaurant.attr("long", response.restaurants[i].restaurant.location.longitude); 
-    // restaurant.html(response.restaurants[i].restaurant.name);  
-    // var restaurantLat = response.restaurants[i].restaurant.location.latitude; 
-    // var restaurantLong = response.restaurants[i].restaurant.location.longitude; 
-    // $(".searchResultsArea").append(restaurant);
-    // // restaurant.append(restaurantBtn); 
-    // pullRefugeeInfo(restaurantLat, restaurantLong); 
-    
-  }
-}
 
 //refugee api call 
 function pullRefugeeInfo(restaurantLat, restaurantLong){
@@ -96,6 +80,7 @@ function pullRefugeeInfo(restaurantLat, restaurantLong){
     })
 }
 
+//compares the list of restaurants and the list of bathrooms returned with the two APIs
 function compareArrays (){ 
   console.log(restaurantArray); 
   console.log(refugeeArray); 
@@ -107,6 +92,8 @@ function compareArrays (){
 
 }
 
+
+//displays data that appears through both Zomato and Refugee APIs
 function finalRestaurantData (){
   var restaurantFinalData = restaurantResponse.filter(function(item){
     return intersection.includes(item.restaurant.name)
@@ -120,54 +107,50 @@ function finalRestaurantData (){
   console.log(restaurantFinalData)
   console.log(refugeeFinalData)
 
-  
+  if (intersection.length === 0) { 
+    var norestaurants = $("<div>"); 
+    norestaurants.text("No restaurants fit your criteria, please try again.");  
+    $(".searchResultsArea").append(norestaurants);
+    return; 
+
+  }
+  else { 
+
+      for (i=0; i<intersection.length; i++){ 
+
+        var restaurant = $("<div>"); 
+        restaurant.text(intersection[i]);  
+        var foodStyle = $("<div>"); 
+        foodStyle.text("Cuisine: "+ restaurantFinalData[i].restaurant.cuisines); 
+        var address = $("<div>"); 
+        address.text("Location: " + restaurantFinalData[i].restaurant.location.address); 
+        var accessible = $("<div>"); 
+        if (refugeeFinalData[i].accessible ===true){ 
+          accessible.text("Handicap accessible"); 
+        }
+        else { 
+          accessible.text("Not handicap accessible"); 
+        }
+
+        var unisex = $("<div>"); 
+        if (refugeeFinalData[i].unisex ===true){ 
+          unisex.text("Unisex bathroom option"); 
+        }
+        else { 
+          unisex.text("No unisex bathroom option"); 
+        }
+
+        $(".searchResultsArea").append(restaurant);
+        $(".searchResultsArea").append(foodStyle); 
+        $(".searchResultsArea").append(address); 
+        $(".searchResultsArea").append(accessible); 
+        $(".searchResultsArea").append(unisex);
+
+      }
+    }
 }
 
 
 $("#searchBtn").on("click", getZipCode)
 
 }); 
-
-
-
-// //map search api 
-//       // Note: This example requires that you consent to location sharing when
-//       // prompted by your browser. If you see the error "The Geolocation service
-//       // failed.", it means you probably did not give permission for the browser to
-//       // locate you.
-//       var map, infoWindow;
-//       function initMap() {
-//         map = new google.maps.Map(document.getElementById('map'), {
-//           center: {lat: -34.397, lng: 150.644},
-//           zoom: 6
-//         });
-//         infoWindow = new google.maps.InfoWindow;
-
-//         // Try HTML5 geolocation.
-//         if (navigator.geolocation) {
-//           navigator.geolocation.getCurrentPosition(function(position) {
-//             var pos = {
-//               lat: position.coords.latitude,
-//               lng: position.coords.longitude
-//             };
-
-//             infoWindow.setPosition(pos);
-//             infoWindow.setContent('Location found.');
-//             infoWindow.open(map);
-//             map.setCenter(pos);
-//           }, function() {
-//             handleLocationError(true, infoWindow, map.getCenter());
-//           });
-//         } else {
-//           // Browser doesn't support Geolocation
-//           handleLocationError(false, infoWindow, map.getCenter());
-//         }
-//       }
-
-//       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//         infoWindow.setPosition(pos);
-//         infoWindow.setContent(browserHasGeolocation ?
-//                               'Error: The Geolocation service failed.' :
-//                               'Error: Your browser doesn\'t support geolocation.');
-//         infoWindow.open(map);
-//       }
