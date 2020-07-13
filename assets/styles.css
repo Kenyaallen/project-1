@@ -5,6 +5,12 @@ body {
         text-align: center;
    }
 
+.rainbow-effect {
+    background-image: linear-gradient(to left, crimson, yellow, darkMagenta, green);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
 .container {
     position: relative;
     justify-content: center;
@@ -15,6 +21,17 @@ body {
     color: #ffad33;
     font-size: x-large;
 }
+
+.searchResultsArea {
+    color: #AA658C;
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.restaurantResult {
+    margin-top: 20px;
+    color: #ffad33;
+    font-size: xx-large;}
 
 /*for linear gradient */
 .rainbow-effect {
