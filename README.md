@@ -24,5 +24,5 @@ Website home screen, with no searches: <img src="assets/photos/home_screen.png">
 
 Zip code search results: <img src = "assets/photos/search_results.png">
 
-Sign key: <img src="assets/photos/sign_key.png>
+Sign key: <img src="assets/photos/sign_key.png">
 
