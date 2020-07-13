@@ -119,7 +119,8 @@ function finalRestaurantData (){
       for (i=0; i<intersection.length; i++){ 
 
         var restaurant = $("<div>"); 
-        restaurant.text(intersection[i]);  
+        restaurant.text(intersection[i]);
+        restaurant.attr("class", "restaurantResult")  
         var foodStyle = $("<div>"); 
         foodStyle.text("Cuisine: "+ restaurantFinalData[i].restaurant.cuisines); 
         var address = $("<div>"); 
