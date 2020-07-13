@@ -1,4 +1,4 @@
-# project-1
+# YipPEE Application Overview
 
 This group project is an attempt to create an interactive site that will allow the user to find a restaurant that they are interested in visiting and finding out the rating of their restroom facilities as it relates to ADA and gender-neutral standards of accessibility, as well as clenliness.
 
@@ -9,3 +9,18 @@ In this group project, we (Mandy Lloyd, Sarah Kerr, and Kenya Allen) built a web
 In this application users will locate a restaurant based on their food preferences for the evening and then search that restaurant's restroom ratings.  
 
 By using this application, you are one quick search away from finding knowing if the restaurant that you will be socializing in meets all of your YiPEE needs.
+
+# APIs 
+
+Zomato API: https://developers.zomato.com/api
+
+Refugee Restrooms API: https://www.refugerestrooms.org/api/docs/
+
+Google Geolocation API: https://developers.google.com/maps/documentation/geolocation/intro 
+
+# Application Photos 
+
+Website home screen, with no searches: <img src="assets/photos/home_screen.png">
+
+Zip code search results: <img src = "assets/photos/search_results.png">
+
