@@ -14,6 +14,9 @@ $(document).ready(function(){
 
 //gets the zipcode provided by the user 
 function getZipCode(){ 
+  intersection = []; 
+  refugeeArray = []; 
+  restaurantArray = []; 
   $(".searchResultsArea").empty(); 
   zipCode = $(".validate").val()
   console.log("Function getZipCode returns: " + zipCode); 
@@ -82,6 +85,7 @@ function pullRefugeeInfo(restaurantLat, restaurantLong){
 
 //compares the list of restaurants and the list of bathrooms returned with the two APIs
 function compareArrays (){ 
+  intersection = []; 
   console.log(restaurantArray); 
   console.log(refugeeArray); 
   intersection = refugeeArray.filter(function(e) {
@@ -106,6 +110,7 @@ function finalRestaurantData (){
   })
   console.log(restaurantFinalData)
   console.log(refugeeFinalData)
+  $(".images").attr("class", "hidden"); 
 
   if (intersection.length === 0) { 
     var norestaurants = $("<div>"); 
