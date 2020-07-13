@@ -47,3 +47,11 @@ hr {
 p { 
     color: #AA658C;
 }
+
+.images { 
+    margin-top: 100px; 
+}
+
+.small { 
+    size: 10px; 
+}
