@@ -32,3 +32,14 @@ body {
     margin-top: 20px;
     color: #ffad33;
     font-size: xx-large;}
+
+/*for linear gradient */
+.rainbow-effect {
+    background-image: linear-gradient(to left, crimson, yellow, darkMagenta, green);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+hr { 
+    width: 20%; 
+}
