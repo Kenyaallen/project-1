@@ -119,11 +119,12 @@ function finalRestaurantData (){
       for (i=0; i<intersection.length; i++){ 
 
         var restaurant = $("<div>"); 
-        restaurant.text(intersection[i]);  
+        restaurant.html("<hr><h5>" + intersection[i] + "<h5>");  
+        restaurant.attr("class", "restaurantInfo"); 
         var foodStyle = $("<div>"); 
-        foodStyle.text("Cuisine: "+ restaurantFinalData[i].restaurant.cuisines); 
+        foodStyle.html("<strong>Cuisine: </strong>"+ restaurantFinalData[i].restaurant.cuisines); 
         var address = $("<div>"); 
-        address.text("Location: " + restaurantFinalData[i].restaurant.location.address); 
+        address.html("<strong>Location: </strong>" + restaurantFinalData[i].restaurant.location.address); 
         var accessible = $("<div>"); 
         if (refugeeFinalData[i].accessible ===true){ 
           accessible.text("Handicap accessible"); 
@@ -134,17 +135,24 @@ function finalRestaurantData (){
 
         var unisex = $("<div>"); 
         if (refugeeFinalData[i].unisex ===true){ 
-          unisex.text("Unisex bathroom option"); 
+          unisex.html("Unisex bathroom option"); 
         }
         else { 
-          unisex.text("No unisex bathroom option"); 
+          unisex.html("No unisex bathroom option"); 
         }
+
+        var restaurantURL = $("<div>"); 
+        restaurantURL.html("<strong><a href=" + restaurantFinalData[i].restaurant.url + ">More info</a></strong>"); 
+
 
         $(".searchResultsArea").append(restaurant);
         $(".searchResultsArea").append(foodStyle); 
         $(".searchResultsArea").append(address); 
         $(".searchResultsArea").append(accessible); 
         $(".searchResultsArea").append(unisex);
+        $(".searchResultsArea").append(restaurantURL);
+
+
 
       }
     }
